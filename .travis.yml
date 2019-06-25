@@ -13,7 +13,7 @@ before_deploy:
 - true
 deploy:
   provider: releases
-  api_key: ${GH_TOKEN}
+  api_key: $GH_TOKEN
   file_glob: true
   file: bin/bulwark*
   overwrite: true
@@ -22,3 +22,4 @@ deploy:
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
     branch: travisci-headless
+    tags: false
