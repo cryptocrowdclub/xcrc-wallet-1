@@ -4,6 +4,7 @@ sudo: false
 branches:
   only:
   - master
+  - /^(?i:v0.)-.*$/
 cache:
   ccache: true
   directories:
