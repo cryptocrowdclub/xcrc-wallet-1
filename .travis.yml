@@ -10,12 +10,7 @@ script:
   - ./configure
   - make -s -l 2.5 -j 4
 before_deploy:
-- cd ..
-- git config --local user.name "cryptocrowdclub"
-- git config --local user.email "cryptocrowd.club@gmail.com"
-- git tag "bulwark-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-- tar -zvcf bulwark-$HOST.tar.gz -C $OUTDIR bin/
-- echo `pwd`
+- true
 deploy:
   provider: releases
   api_key: ${GH_TOKEN}
