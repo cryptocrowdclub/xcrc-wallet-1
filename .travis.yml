@@ -15,7 +15,7 @@ deploy:
   provider: releases
   api_key: ${GH_TOKEN}
   file_glob: true
-  file: bulwark*
+  file: bin/bulwark*
   overwrite: true
   skip_cleanup: true
   draft: true
