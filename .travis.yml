@@ -71,7 +71,7 @@ matrix:
         - python3-zmq
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat LDFLAGS=-static-libstdc++ -fuse-ld=gold
+    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-gold LDFLAGS=-static-libstdc++ -fuse-ld=gold
       --with-gui=qt5"
     - HOST=i686-pc-linux-gnu
     - LABEL=linux32
@@ -87,7 +87,7 @@ matrix:
         - python3-zmq
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat LDFLAGS=-static-libstdc++ -fuse-ld=gold
+    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-gold LDFLAGS=-static-libstdc++ -fuse-ld=gold
       --with-gui=qt5"
     - CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG"
     - HOST=x86_64-pc-linux-gnu
@@ -106,7 +106,7 @@ matrix:
         - python3
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--with-gui=qt5 LDFLAGS=-fuse-ld=gold"
+    - BULWARK_CONFIG="--with-gui=qt5 --enable-gold LDFLAGS=-fuse-ld=gold"
     - HOST=i686-w64-mingw32
     - LABEL=win32
     os: linux
@@ -123,7 +123,7 @@ matrix:
         - python3
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--with-gui=qt5 LDFLAGS=-fuse-ld=gold"
+    - BULWARK_CONFIG="--with-gui=qt5 --enable-gold LDFLAGS=-fuse-ld=gold"
     - HOST=x86_64-w64-mingw32
     - LABEL=win64
     os: linux
@@ -152,15 +152,3 @@ script:
   make deploy; fi
 before_deploy:
 - true
-# Set up git user name and tag this commit
-- git config --local user.name "YOUR GIT USER NAME"
-- git config --local user.email "YOUR GIT USER EMAIL"
-- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-- git tag $TRAVIS_TAG
-deploy:
-  provider: releases
-  api_key: ${GH_TOKEN}
-  file_glob: true
-  file: /Users/travis/build/cryptocrowd-xcrc/xcrc-wallet/Bulwark-Qt.*
-  overwrite: true
-  skip_cleanup: true
