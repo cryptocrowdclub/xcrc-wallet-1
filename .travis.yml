@@ -135,7 +135,7 @@ matrix:
     osx_image: xcode9.2
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold
+- sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold
 install:
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew uninstall mercurial python; brew
   bundle; brew link --overwrite --force boost@1.57; fi
