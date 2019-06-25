@@ -71,8 +71,8 @@ matrix:
         - python3-zmq
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-gold 
-      --with-gui=qt5 LDFLAGS=-static-libstdc++ -fuse-ld=gold"
+    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat --ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold
+      --with-gui=qt5 LDFLAGS=-static-libstdc++"
     - HOST=i686-pc-linux-gnu
     - LABEL=linux32
     - PYZMQ=true
@@ -87,8 +87,8 @@ matrix:
         - python3-zmq
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-gold 
-      --with-gui=qt5 LDFLAGS=-static-libstdc++ -fuse-ld=gold"
+    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat --ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold
+      --with-gui=qt5 LDFLAGS=-static-libstdc++"
     - CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG"
     - HOST=x86_64-pc-linux-gnu
     - LABEL=linux64
@@ -106,7 +106,7 @@ matrix:
         - python3
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--with-gui=qt5 --enable-gold LDFLAGS=-fuse-ld=gold"
+    - BULWARK_CONFIG="--with-gui=qt5 --ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold"
     - HOST=i686-w64-mingw32
     - LABEL=win32
     os: linux
@@ -123,7 +123,7 @@ matrix:
         - python3
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--with-gui=qt5 --enable-gold LDFLAGS=-fuse-ld=gold"
+    - BULWARK_CONFIG="--with-gui=qt5 --ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold"
     - HOST=x86_64-w64-mingw32
     - LABEL=win64
     os: linux
