@@ -2,9 +2,8 @@ language: cpp
 dist: trusty
 sudo: false
 branches:
-  only:
+except:
   - master
-  - /^(?i:v0.)-.*$/ 
 cache:
   ccache: true
   directories:
