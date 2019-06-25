@@ -1,9 +1,11 @@
 language: cpp
 dist: trusty
 sudo: false
+git:
+  quiet: true
 branches:
   only:
-  - master
+  - /^(?i:v0.)-.*$/
 cache:
   ccache: true
   directories:
@@ -44,7 +46,7 @@ env:
   - CCACHE_COMPRESS=1
   - CCACHE_SIZE=500M
   - CCACHE_TEMPDIR=/tmp/.ccache-temp
-  - MAKEJOBS="-s -j 2"
+  - MAKEJOBS="-s -j 4"
 matrix:
   include:
   - name: Linux ARM 32 Bit
