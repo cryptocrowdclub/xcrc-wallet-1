@@ -11,11 +11,14 @@ script:
   - make -s -l 2.5 -j 4
 before_deploy:
 - true
+- cd ..
+- tar -zvcf bulwark-$HOST.tar.gz -C $OUTDIR bin/
+- echo `pwd`
 deploy:
   provider: releases
   api_key: $GH_TOKEN
   file_glob: true
-  file: bin/bulwark*
+  file: bulwark-*
   overwrite: true
   skip_cleanup: true
   draft: true
