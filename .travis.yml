@@ -4,9 +4,8 @@ sudo: false
 git:
   quiet: true
 branches:
-  only:
+  except:
   - master
-  - /^(?i:v0.)-.*$/ 
 cache:
   ccache: true
   directories:
