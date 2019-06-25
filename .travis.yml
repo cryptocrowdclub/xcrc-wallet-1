@@ -8,5 +8,5 @@ before_install:
 script:
   - ./autogen.sh
   - ./configure
-  - make
+  - make -s -l 2.5 -j 4
   - make check
