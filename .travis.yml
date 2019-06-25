@@ -87,7 +87,8 @@ matrix:
         - python3-zmq
         - qtdeclarative5-dev
     env:
-    - LABEL=linux64-headless
+    - BULWARK_CONFIG="--enable-glibc-back-compat --with-gui=no"
+    - LABEL=linux64
     os: linux
   - name: Linux x86 64 Bit
     addons:
@@ -155,10 +156,8 @@ before_script:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then unset CC CXX DISPLAY; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export LDFLAGS=-L/usr/local/opt/openssl/lib;
   export CPPFLAGS=-I/usr/local/opt/openssl/include; fi
-- GLOBAL_CONFIG="--enable-reduce-exports --enable-tests --prefix=$TRAVIS_BUILD_DIR/depends/$HOST"
+- GLOBAL_CONFIG="--enable-reduce-exports --prefix=$TRAVIS_BUILD_DIR/depends/$HOST"
 script:
-- if [[ "$LABEL" == "linux64-headless" ]]; then sh ./autogen.sh; ./configure; 
-  make; fi
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make $MAKEJOBS -C depends HOST="$HOST";
   depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE; sh ./autogen.sh; ./configure
   --cache-file=config.cache $GLOBAL_CONFIG $BULWARK_CONFIG; make $MAKEJOBS; fi
