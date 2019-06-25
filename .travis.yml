@@ -12,7 +12,7 @@ script:
 before_deploy:
 - true
 - cd ..
-- tar -zvcf bulwark-$HOST.tar.gz -C $OUTDIR bin/
+- tar -zvcf bulwark-bin.tar.gz bin/
 - echo `pwd`
 deploy:
   provider: releases
@@ -21,7 +21,7 @@ deploy:
   file: bulwark-*
   overwrite: true
   skip_cleanup: true
-  draft: true
+  #draft: true
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
     branch: travisci-headless
