@@ -161,7 +161,7 @@ script:
   make; fi
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make $MAKEJOBS -C depends HOST="$HOST";
   depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE; sh ./autogen.sh; ./configure
-  --cache-file=config.cache $GLOBAL_CONFIG $BULWARK_CONFIG; make; fi
+  --cache-file=config.cache $GLOBAL_CONFIG $BULWARK_CONFIG; make $MAKEJOBS; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sh ./autogen.sh; ./configure --enable-reduce-exports;
   make deploy; fi
 before_deploy:
