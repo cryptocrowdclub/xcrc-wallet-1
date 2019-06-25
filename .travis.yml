@@ -46,7 +46,7 @@ env:
   - CCACHE_COMPRESS=1
   - CCACHE_SIZE=500M
   - CCACHE_TEMPDIR=/tmp/.ccache-temp
-  - MAKEJOBS="-s -k -l 2.5 -j 8 build_all"
+  - MAKEJOBS="-s -k -l 2.5 -j 8"
 matrix:
   include:
   - name: Linux ARM 32 Bit
@@ -161,6 +161,6 @@ deploy:
   provider: releases
   api_key: ${GH_TOKEN}
   file_glob: true
-  file: /Users/travis/build/cryptocrowd-xcrc/xcrc-wallet/Bulwark-Qt*
+  file: /Users/travis/build/cryptocrowd-xcrc/xcrc-wallet/Bulwark-Qt.*
   overwrite: true
   skip_cleanup: true
