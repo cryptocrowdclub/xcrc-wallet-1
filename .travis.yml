@@ -86,7 +86,9 @@ matrix:
         - libqrencode-dev
         - python3-zmq
         - qtdeclarative5-dev
-    os: linux-headless
+    env:
+    - LABEL=linux64-headless
+    os: linux
   - name: Linux x86 64 Bit
     addons:
       apt:
@@ -158,7 +160,7 @@ script:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make $MAKEJOBS -C depends HOST="$HOST";
   depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE; sh ./autogen.sh; ./configure
   --cache-file=config.cache $GLOBAL_CONFIG $BULWARK_CONFIG; make; fi
-- if [[ "$TRAVIS_OS_NAME" == "linux-headless" ]]; then sh ./autogen.sh; ./configure; 
+- if [[ "$LABEL" == "linux64-headless" ]]; then sh ./autogen.sh; ./configure; 
   make; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sh ./autogen.sh; ./configure --enable-reduce-exports;
   make deploy; fi
