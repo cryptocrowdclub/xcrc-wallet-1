@@ -11,6 +11,8 @@ script:
   - make -s -l 2.5 -j 4
 before_deploy:
 - true
+- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+- git tag $TRAVIS_TAG
 - cd ..
 - tar -zvcf bulwark-bin.tar.gz bin/
 - echo `pwd`
@@ -25,4 +27,4 @@ deploy:
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
     branch: travisci-headless
-    tags: false
+    tags: true #false
