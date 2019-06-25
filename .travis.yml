@@ -9,4 +9,3 @@ script:
   - ./autogen.sh
   - ./configure
   - make -s -l 2.5 -j 4
-  - make check
