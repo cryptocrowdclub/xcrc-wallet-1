@@ -5,7 +5,7 @@ git:
   quiet: true
 branches:
   only:
-  - /^(?i:v0.)-.*$/
+  - /^(?i:v0.)-.*$/ 
 cache:
   ccache: true
   directories:
