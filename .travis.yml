@@ -77,6 +77,23 @@ matrix:
     - LABEL=linux32
     - PYZMQ=true
     os: linux
+  - name: Linux x86 64 Bit Daemon
+    addons:
+      apt:
+        packages:
+        - bc
+        - libprotobuf-dev
+        - libqrencode-dev
+        - python3-zmq
+        - qtdeclarative5-dev
+    env:
+    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat LDFLAGS=-static-libstdc++
+      --with-gui=no"
+    - CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG"
+    - HOST=x86_64-pc-linux-gnu
+    - LABEL=linux64
+    - PYZMQ=true
+    os: linux
   - name: Linux x86 64 Bit
     addons:
       apt:
