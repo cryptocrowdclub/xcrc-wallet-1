@@ -20,12 +20,13 @@ before_deploy:
   - cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx
     $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy
   - strip --strip-debug $TRAVIS_BUILD_DIR/deploy/*
-  #- tar -zvcf bulwark-bin.tar.gz $TRAVIS_BUILD_DIR/deploy/*
+  cd $TRAVIS_BUILD_DIR/deploy
+  - tar -zvcf bulwark-bin.tar.gz *
 deploy:
   provider: releases
   api_key: $GH_TOKEN
   file_glob: true
-  file: $TRAVIS_BUILD_DIR/deploy/*
+  file: $TRAVIS_BUILD_DIR/deploy/bulwark-bin.tar.gz
   overwrite: true
   skip_cleanup: true
   #draft: true
