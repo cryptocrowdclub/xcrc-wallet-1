@@ -11,6 +11,7 @@ branches:
   except:
   - /^v\d+\.\d+\.\d+(\.\d+)?(-\S*)?$/
 cache:
+  - bundler
   ccache: true
   directories:
   - depends/built
