@@ -156,8 +156,10 @@ before_deploy:
 #- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
 #- git tag $TRAVIS_TAG
   - mkdir $TRAVIS_BUILD_DIR/deploy
-  - cp $TRAVIS_BUILD_DIR/src/bulwark*.exe $TRAVIS_BUILD_DIR/deploy
-  - cp $TRAVIS_BUILD_DIR/src/qt/bulwark*.exe $TRAVIS_BUILD_DIR/deploy
+  - if [[ "$LABEL" == "win*" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli.exe $TRAVIS_BUILD_DIR/src/bulwark-tx.exe 
+  $TRAVIS_BUILD_DIR/src/bulwarkd.exe $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt.exe $TRAVIS_BUILD_DIR/deploy; fi
+  - if [[ "$LABEL" == "linux*" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx 
+  $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
   - strip --strip-debug $TRAVIS_BUILD_DIR/deploy/*
   - cd $TRAVIS_BUILD_DIR/deploy
   - tar -zvcf bulwark-qt.tar.gz *
