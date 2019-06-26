@@ -3,6 +3,7 @@ dist: trusty
 sudo: true
 git:
   quiet: true
+  depth: 5
 branches:
   only:
   - master
@@ -11,10 +12,12 @@ branches:
   except:
   - /^v\d+\.\d+\.\d+(\.\d+)?(-\S*)?$/
 cache:
+  timeout: 1000
   ccache: true
   directories:
   - depends/built
   - depends/sdk-sources
+  - depends/i686-w64-mingw32
   - "$HOME/.ccache"
   - /usr/local/Homebrew
 addons:
