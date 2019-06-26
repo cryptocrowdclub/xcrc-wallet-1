@@ -23,8 +23,8 @@ deploy:
   file: bulwark*
   overwrite: true
   skip_cleanup: true
-  #draft: true
+  draft: true
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
     branch: travisci-headless
-    tags: false #false
+    tags: false #true
