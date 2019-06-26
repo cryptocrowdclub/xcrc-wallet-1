@@ -4,6 +4,9 @@ sudo: true
 git:
   quiet: true
 branches:
+#  only:
+#  - master
+#  - /^deploy-.*$/
   except:
   - master
 cache:
@@ -157,20 +160,21 @@ before_deploy:
 #- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M')}
 #- git tag $TRAVIS_TAG
   - mkdir $TRAVIS_BUILD_DIR/deploy
-  - if [[ "$LABEL" == "win32" ]]; then 
-cp $TRAVIS_BUILD_DIR/src/bulwark-cli.exe $TRAVIS_BUILD_DIR/src/bulwark-tx.exe $TRAVIS_BUILD_DIR/src/bulwarkd.exe $TRAVIS_BUILD_DIR/deploy; 
-cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt.exe $TRAVIS_BUILD_DIR/deploy; 
-fi
+  - if [[ "$LABEL" == "win32" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli.exe $TRAVIS_BUILD_DIR/src/bulwark-tx.exe $TRAVIS_BUILD_DIR/src/bulwarkd.exe $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt.exe $TRAVIS_BUILD_DIR/deploy; fi
+  - if [[ "$LABEL" == "arm" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-qt.dmg $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
   - strip --strip-debug $TRAVIS_BUILD_DIR/deploy/*
   - cd $TRAVIS_BUILD_DIR/deploy
-  - tar -zvcf bulwark-qt.tar.gz *
+  - if [[ "$LABEL" == "win32" ]]; then zip bulwark-qt-$TRAVIS_BRANCH-$LABEL.zip *; fi
+  - if [[ "$LABEL" == "arm" ]]; then tar -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then tar -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
 deploy:
   provider: releases
   api_key: $GH_TOKEN
   file_glob: true
-  file: $TRAVIS_BUILD_DIR/deploy/bulwark-qt.tar.gz
+  file: $TRAVIS_BUILD_DIR/deploy/bulwark-qt*
   overwrite: true
   skip_cleanup: true
   #draft: true
