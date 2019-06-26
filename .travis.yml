@@ -157,7 +157,7 @@ script:
 before_deploy:
 #- true
 #- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M')}
+#- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M')}
 #- git tag $TRAVIS_TAG
   - mkdir $TRAVIS_BUILD_DIR/deploy
   - if [[ "$LABEL" == "arm" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy; fi
@@ -179,7 +179,7 @@ deploy:
   skip_cleanup: true
   #draft: true
   #name: ${TRAVIS_BRANCH}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}
-  tag_name: ${TRAVIS_BRANCH}-${LABEL}-${TRAVIS_TAG}
+  tag_name: ${TRAVIS_BRANCH}-${LABEL}-${TRAVIS_BUILD_NUMBER}
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
     all_branches: true
