@@ -60,23 +60,23 @@ matrix:
     - HOST=arm-linux-gnueabihf
     - LABEL=ARM
     os: linux
-  - name: Linux i686 32 Bit
-    addons:
-      apt:
-        packages:
-        - bc
-        - g++-multilib
-        - libprotobuf-dev
-        - libqrencode-dev
-        - python3-zmq
-        - qtdeclarative5-dev
-    env:
-    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat
-      --with-gui=qt5 LDFLAGS=-static-libstdc++"
-    - HOST=i686-pc-linux-gnu
-    - LABEL=linux32
-    - PYZMQ=true
-    os: linux
+#  - name: Linux i686 32 Bit
+#    addons:
+#      apt:
+#        packages:
+#        - bc
+#        - g++-multilib
+#        - libprotobuf-dev
+#        - libqrencode-dev
+#        - python3-zmq
+#        - qtdeclarative5-dev
+#   env:
+#    - BULWARK_CONFIG="--enable-zmq --enable-glibc-back-compat
+#      --with-gui=qt5 LDFLAGS=-static-libstdc++"
+#    - HOST=i686-pc-linux-gnu
+#    - LABEL=linux32
+#    - PYZMQ=true
+#    os: linux
   - name: Linux x86 64 Bit
     addons:
       apt:
@@ -123,7 +123,7 @@ matrix:
         - python3
         - qtdeclarative5-dev
     env:
-    - BULWARK_CONFIG="--with-gui=qt5"
+    - BULWARK_CONFIG="--with-gui=qt5 LDFLAGS=-Wa,-mbig-obj"
     - HOST=x86_64-w64-mingw32
     - LABEL=win64
     os: linux
@@ -152,4 +152,27 @@ script:
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sh ./autogen.sh; ./configure --enable-reduce-exports;
   make deploy; fi
 before_deploy:
-- true
+#- true
+#- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+#- git tag $TRAVIS_TAG
+  - mkdir $TRAVIS_BUILD_DIR/deploy
+  - cp $TRAVIS_BUILD_DIR/src/bulwark* $TRAVIS_BUILD_DIR/deploy
+  - cp $TRAVIS_BUILD_DIR/src/qt/bulwark* $TRAVIS_BUILD_DIR/deploy
+  - strip --strip-debug $TRAVIS_BUILD_DIR/deploy/*
+  - cd $TRAVIS_BUILD_DIR/deploy
+  - tar -zvcf bulwark-qt.tar.gz *
+deploy:
+  provider: releases
+  api_key: $GH_TOKEN
+  file_glob: true
+  file: $TRAVIS_BUILD_DIR/deploy/bulwark-qt.tar.gz
+  overwrite: true
+  skip_cleanup: true
+  #draft: true
+  name: ${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}
+  tag_name: ${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}
+  on:
+    repo: cryptocrowd-xcrc/xcrc-wallet
+    all_branches: true
+    #branch: travisci-headless
+    tags: false #true
