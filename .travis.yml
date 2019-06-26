@@ -27,4 +27,4 @@ deploy:
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
     branch: travisci-headless
-    tags: true #false
+    tags: false #false
