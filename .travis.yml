@@ -8,7 +8,7 @@ branches:
 #  - master
 #  - /^deploy-.*$/
   except:
-  - master
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 cache:
   ccache: true
   directories:
@@ -181,7 +181,7 @@ deploy:
   overwrite: true
   skip_cleanup: true
   draft: true
-  name: ${TRAVIS_BRANCH}.${TRAVIS_BUILD_NUMBER}-${LABEL}
+  name: ${TRAVIS_BRANCH}.${TRAVIS_BUILD_NUMBER}
   tag_name: ${TRAVIS_BRANCH}.${TRAVIS_BUILD_NUMBER}
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
