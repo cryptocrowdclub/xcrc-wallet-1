@@ -13,14 +13,14 @@ before_deploy:
 - true
 - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
 - git tag $TRAVIS_TAG
-- cd ..
-- tar -zvcf bulwark-bin.tar.gz bin/
-- echo `pwd`
+#- cd ..
+#- tar -zvcf bulwark-bin.tar.gz bin/
+#- echo `pwd`
 deploy:
   provider: releases
   api_key: $GH_TOKEN
   file_glob: true
-  file: bulwark-*
+  file: bulwark*
   overwrite: true
   skip_cleanup: true
   #draft: true
