@@ -110,23 +110,23 @@ matrix:
     - HOST=i686-w64-mingw32
     - LABEL=win32
     os: linux
-  - name: Windows x86 64 Bit
-    addons:
-      apt:
-        packages:
-        - bc
-        - g++-mingw-w64-x86-64
-        - libprotobuf-dev
-        - libqrencode-dev
-        - linux-libc-dev:i386
-        - nsis
-        - python3
-        - qtdeclarative5-dev
-    env:
-    - BULWARK_CONFIG="--with-gui=qt5 LDFLAGS=-Wa,-mbig-obj"
-    - HOST=x86_64-w64-mingw32
-    - LABEL=win64
-    os: linux
+#  - name: Windows x86 64 Bit
+#    addons:
+#      apt:
+#        packages:
+#        - bc
+#        - g++-mingw-w64-x86-64
+#        - libprotobuf-dev
+#        - libqrencode-dev
+#        - linux-libc-dev:i386
+#        - nsis
+#        - python3
+#        - qtdeclarative5-dev
+#    env:
+#    - BULWARK_CONFIG="--with-gui=qt5 LDFLAGS=-Wa,-mbig-obj"
+#    - HOST=x86_64-w64-mingw32
+#    - LABEL=win64
+#    os: linux
   - name: macOS x86 64 Bit
     env:
     - HOST=x86_64-apple-darwin
@@ -157,10 +157,11 @@ before_deploy:
 - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M')
 #- git tag $TRAVIS_TAG
   - mkdir $TRAVIS_BUILD_DIR/deploy
-  - if [[ "$LABEL" == "win*" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli.exe $TRAVIS_BUILD_DIR/src/bulwark-tx.exe 
+  - if [[ "$LABEL" == "win32" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli.exe $TRAVIS_BUILD_DIR/src/bulwark-tx.exe 
   $TRAVIS_BUILD_DIR/src/bulwarkd.exe $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt.exe $TRAVIS_BUILD_DIR/deploy; fi
-  - if [[ "$LABEL" == "linux*" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx 
+  - if [[ "$LABEL" == "linux64" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx 
   $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-qt.dmg $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
   - strip --strip-debug $TRAVIS_BUILD_DIR/deploy/*
   - cd $TRAVIS_BUILD_DIR/deploy
   - tar -zvcf bulwark-qt.tar.gz *
