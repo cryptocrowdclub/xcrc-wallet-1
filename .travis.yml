@@ -173,8 +173,8 @@ deploy:
   overwrite: true
   skip_cleanup: true
   #draft: true
-  #name: ${TRAVIS_BRANCH}-{$TRAVIS_TAG}-{TRAVIS_BUILD_NUMBER}
-  tag_name: ${TRAVIS_BRANCH}-{$TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}
+  #name: ${TRAVIS_BRANCH}-{TRAVIS_TAG}-{TRAVIS_BUILD_NUMBER}
+  tag_name: ${TRAVIS_BRANCH}-${$TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}
   on:
     repo: cryptocrowd-xcrc/xcrc-wallet
     all_branches: true
