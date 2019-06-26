@@ -4,11 +4,13 @@ sudo: true
 git:
   quiet: true
 branches:
-#  only:
-#  - master
+  only:
+  - master
+  - v0.1.1.0
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 #  - /^deploy-.*$/
   except:
-  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+  - /^v\d+\.\d+\.\d+(\.\d+)?(-\S*)?$/
 cache:
   ccache: true
   directories:
