@@ -16,6 +16,7 @@ cache:
   - depends/built
   - depends/sdk-sources
   - "$HOME/.ccache"
+  - /usr/local/Homebrew
 addons:
   apt:
     sources:
