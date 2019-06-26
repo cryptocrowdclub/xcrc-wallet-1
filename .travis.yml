@@ -42,6 +42,7 @@ addons:
     - python-setuptools
     - python3
     - python3-zmq
+    - zip
     - zlib1g-dev
 env:
   global:
@@ -163,13 +164,13 @@ before_deploy:
   - if [[ "$LABEL" == "ARM" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy; fi
   - if [[ "$LABEL" == "linux64" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli $TRAVIS_BUILD_DIR/src/bulwark-tx $TRAVIS_BUILD_DIR/src/bulwarkd $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
   - if [[ "$LABEL" == "win32" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli.exe $TRAVIS_BUILD_DIR/src/bulwark-tx.exe $TRAVIS_BUILD_DIR/src/bulwarkd.exe $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt.exe $TRAVIS_BUILD_DIR/deploy; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-qt.dmg $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt $TRAVIS_BUILD_DIR/deploy; fi
-  - strip --strip-debug $TRAVIS_BUILD_DIR/deploy/*
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-qt.dmg $TRAVIS_BUILD_DIR/deploy; fi
+  - strip $TRAVIS_BUILD_DIR/deploy/*
   - cd $TRAVIS_BUILD_DIR/deploy
   - if [[ "$LABEL" == "ARM" ]]; then tar -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux64" ]]; then tar -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
   - if [[ "$LABEL" == "win32" ]]; then zip bulwark-qt-$TRAVIS_BRANCH-$LABEL.zip *; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip bulwark-qt-$TRAVIS_BRANCH-$LABEL.zip *; fi
 deploy:
   provider: releases
   api_key: $GH_TOKEN
