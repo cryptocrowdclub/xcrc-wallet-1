@@ -166,7 +166,7 @@ before_deploy:
   - if [[ "$LABEL" == "win32" ]]; then cp $TRAVIS_BUILD_DIR/src/bulwark-cli.exe $TRAVIS_BUILD_DIR/src/bulwark-tx.exe $TRAVIS_BUILD_DIR/src/bulwarkd.exe $TRAVIS_BUILD_DIR/deploy; cp $TRAVIS_BUILD_DIR/src/qt/bulwark-qt.exe $TRAVIS_BUILD_DIR/deploy; strip $TRAVIS_BUILD_DIR/deploy/*; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp $TRAVIS_BUILD_DIR/Bulwark-Qt.dmg $TRAVIS_BUILD_DIR/deploy; strip $TRAVIS_BUILD_DIR/deploy/*; fi
   - cd $TRAVIS_BUILD_DIR/deploy
-  - ll;
+  - ls -lh;
   - if [[ "$LABEL" == "ARM" ]]; then tar -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
   - if [[ "$LABEL" == "linux64" ]]; then tar -zvcf bulwark-qt-$TRAVIS_BRANCH-$LABEL.tar.gz *; fi
   - if [[ "$LABEL" == "win32" ]]; then zip bulwark-qt-$TRAVIS_BRANCH-$LABEL.zip *; fi
@@ -182,7 +182,7 @@ deploy:
   name: ${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}
  # tag_name: ${TRAVIS_BRANCH}-${LABEL}-${TRAVIS_BUILD_NUMBER}
   on:
- #   repo: cryptocrowd-xcrc/xcrc-wallet
+    repo: cryptocrowd-xcrc/xcrc-wallet
     all_branches: true
  #   branch: travisci-headless
  #   tags: false #true
